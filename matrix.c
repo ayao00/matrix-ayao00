@@ -21,6 +21,13 @@ print the matrix such that it looks like
 the template in the top comment
 */
 void print_matrix(struct matrix *m) {
+  int i,j;
+  for(i = 0; i < m->rows; i++){
+    for(j = 0; j < m->lastcol; j++){
+      printf("%f ", m->m[i][j]);
+    }
+    printf("\n");
+  }
 }
 
 /*-------------- void ident() --------------
@@ -28,6 +35,17 @@ Inputs:  struct matrix *m <-- assumes m is a square matrix
 turns m in to an identity matrix
 */
 void ident(struct matrix *m) {
+  int i, j;
+  for(i = 0; i < 4; i++){
+    for(j = 0; j < 4; j++){
+      if(j == i){
+        m->m[i][j] = 1.00;
+      }else{
+        m->m[i][j] = 0.00;
+      }
+    }
+  }
+  m->lastcol = 3;
 }
 
 
@@ -37,7 +55,26 @@ Inputs:  struct matrix *a
 multiply a by b, modifying b to be the product
 a*b -> b
 */
-void matrix_mult(struct matrix *a, struct matrix *b) {
+void matrix_mult(struct matrix *a, struct matrix *b){
+  int i,j,k,ans;
+  struct matrix * copy;
+  copy = new_matrix(4,b->lastcol);
+  copy_matrix(b, copy);
+  for(k = 0; k < b->lastcol;k++){
+    for(i = 0; i < 4;i++){
+      ans = 0;
+    //b->b[j][i] =
+      for(j = 0; j < 4; j++){
+        //printf("a[%d][%d] = %f\n", i, j, a->m[i][j]);
+        //printf("b[%d][%d] = %f\n", j, k, copy->m[j][k]);
+        //printf("%f * %f\n", a->m[i][j], b->m[j][k]);
+        ans += a->m[i][j] * copy->m[j][k];
+      //b->b[j][i] += a->a[i][j] * b[j][i]
+      }
+      //printf("%d\n", ans);
+      b->m[i][k] = ans;
+    }
+  }
 }
 
 
@@ -98,7 +135,7 @@ Returns:
 Reallocates the memory for m->m such that it now has
 newcols number of collumns
 ====================*/
-void grow_matrix(struct matrix *m, int newcols) {
+void grow_matrix(struct matrix *m, int newcols){
 
   int i;
   for (i=0;i<m->rows;i++) {
