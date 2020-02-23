@@ -56,7 +56,7 @@ int main() {
   }
   draw_lines(edges, s, c);
   display(s);
-  save_extension(s, "lines.png");
-  save_ppm(s, "binary.ppm");
-  save_ppm_ascii(s, "ascii.ppm");
+  save_extension(s, "matrix.png");
+  save_ppm(s, "binarymatrix.ppm");
+  save_ppm_ascii(s, "asciimatrix.ppm");
 }
