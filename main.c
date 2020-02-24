@@ -47,14 +47,17 @@ int main() {
   print_matrix(test);
 
   free_matrix(edges);
-  free_matrix(test2);
-  free_matrix(test);
 
   edges = new_matrix(4, 100);
   for(int i = 0; i < 50; i++){
-    add_edge(edges, (i * 10 + 20),(500 - i * 10), 0, (i*20%500),(500- i*15),0);
+    add_edge(edges, (i * 10 + 20),(YRES - i * 10), 0, (i*20%XRES),(YRES- i*15),0);
   }
-  draw_lines(edges, s, c);
+
+  draw_lines(edges,s,c);
+
+  free_matrix(edges);
+  free_matrix(test);
+  free_matrix(test2);
   display(s);
   save_extension(s, "matrix.png");
   save_ppm(s, "binarymatrix.ppm");

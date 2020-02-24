@@ -17,7 +17,7 @@ if points is full, should call grow on points
 ====================*/
 void add_point( struct matrix * points, double x, double y, double z) {
   if(points->lastcol == points->cols){
-    grow_matrix(points, points->cols+10);
+    grow_matrix(points, points->cols+1);
   }
   points->m[0][points->lastcol] = x;
   points->m[1][points->lastcol] = y;
@@ -53,7 +53,7 @@ void draw_lines( struct matrix * points, screen s, color c) {
   while(i < points->lastcol){
     draw_line(points->m[0][i], points->m[1][i],
               points->m[0][i+1], points->m[1][i+1],s,c);
-    i++;
+    i+=2;
   }
 }
 
